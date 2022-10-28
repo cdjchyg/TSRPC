@@ -25,5 +25,6 @@ vue create admin_sys // 创建工程
  https://element-plus.gitee.io/zh-CN/guide/quickstart.html
  安装：
     npm install element-plus --save   // 安装好后，可以在package.json中dependencies看到看到 element plus的依赖
-     
+ 引入方式参考 https://element-plus.gitee.io/zh-CN/guide/quickstart.html
+ 按需引入：装插件 npm install -D unplugin-vue-components unplugin-auto-import
  
