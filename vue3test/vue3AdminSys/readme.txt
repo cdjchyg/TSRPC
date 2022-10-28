@@ -18,8 +18,12 @@ vue create admin_sys // 创建工程
      
       
  运行项目
- npm run serve  // 编译项目、启动服务运行工程，点击 显示的网址 就可以打开网页
+ npm run serve  // 编译项目、启动服务运行工程，点击 显示的网址 就可以打开网页; 改动后会及时编译，再次点击地址打开就是最新的
  
- 
- 
+ 使用的一个vue ui框架
+ element plus
+ https://element-plus.gitee.io/zh-CN/guide/quickstart.html
+ 安装：
+    npm install element-plus --save   // 安装好后，可以在package.json中dependencies看到看到 element plus的依赖
+     
  
