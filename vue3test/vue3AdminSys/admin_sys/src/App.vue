@@ -6,7 +6,9 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
-  <router-view/>
+  
+<!--  router 所显示的位置， 所以 使用 url/login 进入网页可以看到在 home 和 about 下有一个登录页面-->
+  <router-view/> 
 </template>
 
 <style lang="scss">
