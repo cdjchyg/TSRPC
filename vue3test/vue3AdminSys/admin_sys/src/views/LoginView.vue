@@ -33,8 +33,13 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, reactive, toRefs } from 'vue'
+import {defineComponent, reactive, toRefs, ref } from 'vue'
 import {LoginData} from "../type/login"
+import type {FormInstance} from "element-plus"
+import {login} from "../request/api"
+import {AxiosResponse} from "axios";
+import {useRouter} from "vue-router";
+
 export default defineComponent({
   setup()
   {
@@ -67,8 +72,34 @@ export default defineComponent({
         }
       ]
     }
-    
-    return {...toRefs(data), rules}
+    // 登录
+    const ruleFormRef = ref<FormInstance>()
+    // 重置
+    const resetForm = () =>{
+      data.ruleForm.username = ""
+      data.ruleForm.password = ""
+    }
+    const router = useRouter()
+    const submitForm = ((formE1:FormInstance|undefined) =>{
+      if(!formE1) return
+      // console.log(formE1)
+      formE1.validate((valid)=>{
+        if (valid){
+          console.log("submit")
+          login(data.ruleForm).then((res:AxiosResponse)=>{
+            console.log(res)
+            localStorage.setItem("token", res.data.token)
+            router.push("/")
+            // https://www.bilibili.com/video/BV1nr4y1G73d?p=8&vd_source=427767c4c8b4f789172c77badc06350c
+          })
+        }
+        else {
+          console.log("error submit")
+          return false
+        }
+      })
+    })
+    return {...toRefs(data), rules, ruleFormRef, submitForm, resetForm}
   }
 })
 </script>
