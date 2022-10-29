@@ -28,3 +28,6 @@ vue create admin_sys // 创建工程
  引入方式参考 https://element-plus.gitee.io/zh-CN/guide/quickstart.html
  按需引入：装插件 npm install -D unplugin-vue-components unplugin-auto-import
  
+ http mock,需要挂vpn
+ https://www.fastmock.site/#/
+ 
