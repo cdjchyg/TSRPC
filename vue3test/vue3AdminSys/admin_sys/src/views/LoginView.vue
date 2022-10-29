@@ -34,45 +34,41 @@
 
 <script lang="ts">
 import {defineComponent, reactive, toRefs } from 'vue'
+import {LoginData} from "../type/login"
 export default defineComponent({
   setup()
   {
-    const data = reactive({
-      ruleForm:{
-        username:"",
-        password:"",
-      },
-      rules:{
-        username:[
-          {
-            required:true,
-            message:"请输入账号",
-            trigger:"blur",
-          },
-          {
-            min:3,
-            max:10,
-            message:"账号长度在3到10之间",
-            trigger:"blur",
-          }
-        ],
-        password:[
-          {
-            required:true,
-            message:"请输入你的密码",
-            trigger:"blur",
-          },
-          {
-            min:3,
-            max:10,
-            message:"密码长度 3 到10之间",
-            trigger:"blur",
-          }
-        ]
-      }
-    })
+    const data = reactive(new LoginData())
+    const rules = {
+      username:[
+        {
+          required:true,
+          message:"请输入账号",
+          trigger:"blur",
+        },
+        {
+          min:3,
+          max:10,
+          message:"账号长度在3到10之间",
+          trigger:"blur",
+        }
+      ],
+      password:[
+        {
+          required:true,
+          message:"请输入你的密码",
+          trigger:"blur",
+        },
+        {
+          min:3,
+          max:10,
+          message:"密码长度 3 到10之间",
+          trigger:"blur",
+        }
+      ]
+    }
     
-    return {...toRefs(data)}
+    return {...toRefs(data), rules}
   }
 })
 </script>
