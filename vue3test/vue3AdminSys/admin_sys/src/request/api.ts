@@ -10,3 +10,10 @@ export function login(data:loginData) {
         data
     })
 }
+
+export function getGoodsList(){
+    return service({
+        url:"/getGoodsList",
+        method:"get"
+    })
+}
