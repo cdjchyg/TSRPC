@@ -19,14 +19,15 @@
       <el-table-column prop="title" label="标题" width="180" />
       <el-table-column prop="introduce" label="详情" />
     </el-table>
-    <el-pagination @current-change="currentChange" @size-change="sizeChange" layout="prev, pager, next" :total="selectData.count" />
+<!--    total 是按照每页显示10条处理，由于我们显示5条所以乘以2-->
+    <el-pagination @current-change="currentChange" @size-change="sizeChange" layout="prev, pager, next" :total="selectData.count * 2" />
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, reactive, toRefs, computed} from 'vue'
+import {defineComponent, reactive, toRefs, computed, watch} from 'vue'
 import {getGoodsList} from "../request/api"
-import {InitData} from '../type/goods'
+import {InitData, ListInt} from '../type/goods'
 export default defineComponent({
   setup(){
     const data = reactive(new InitData())
@@ -50,7 +51,41 @@ export default defineComponent({
     const sizeChange = (pagesize:number)=>{
       data.selectData.pagesize = pagesize
     }
-    return {...toRefs(data), currentChange, sizeChange, dataList}
+    const onSubmit = ()=>{
+      // console.log(data.selectData)
+      let arr:ListInt[] = []
+      if (data.selectData.title || data.selectData.introduce)
+      {
+        if(data.selectData.title)
+        {
+          arr = data.list.filter((value)=>{
+            return value.title.indexOf(data.selectData.title) >= 0
+          })
+        }
+        if(data.selectData.introduce)
+        {
+          arr = data.list.filter((value)=>{
+            return value.introduce.indexOf(data.selectData.introduce) >= 0
+          })
+        }
+      }else {
+        arr = data.list
+      }
+      data.selectData.count = arr.length
+      data.list = arr
+    }
+    watch([()=>data.selectData.title, ()=>data.selectData.introduce], ()=>{
+      if (data.selectData.title == "" && data.selectData.introduce == "")
+      {
+        // TODO提取公共方法
+        getGoodsList().then((res)=>{
+          // console.log(res)
+          data.list = res.data
+          data.selectData.count = res.data.length
+        })
+      }
+    })
+    return {...toRefs(data), currentChange, sizeChange, dataList, onSubmit}
   }
 })
 
