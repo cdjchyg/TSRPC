@@ -90,7 +90,7 @@ export default defineComponent({
             console.log(res)
             localStorage.setItem("token", res.data.token)
             router.push("/")
-            // https://www.bilibil  i.com/video/BV1nr4y1G73d?p=8&vd_source=427767c4c8b4f789172c77badc06350c
+            // https://www.bilibili.com/video/BV1nr4y1G73d?p=8&vd_source=427767c4c8b4f789172c77badc06350c
           })
         }
         else {
