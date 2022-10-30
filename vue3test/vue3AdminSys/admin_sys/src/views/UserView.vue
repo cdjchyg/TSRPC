@@ -42,8 +42,46 @@
         </template>
         
       </el-table-column>
+      <el-table-column prop="role" label="操作" >
+        <template #default="scope">
+          <el-button
+              link
+              type="primary"
+              size="small"
+              @click="changeUser(scope.row)"
+          >
+            编辑
+          </el-button>
+        </template>
+
+      </el-table-column>
     </el-table>
   </div>
+
+  <el-dialog v-model="isShow" title="编辑信息">
+    <el-form :model="active">
+      <el-form-item label="姓名" label-width="50px">
+        <el-input v-model="active.nickName" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="角色" label-width="50px">
+        <el-select multiple v-model="active.role" placeholder="请选择角色">
+          <el-option
+          v-for="item in roleList"
+          :key="item.roleId"
+          :label="item.roleName"
+          :value="item.roleId"
+          />
+        </el-select>
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button type="primary" @click="updateUser">更改</el-button>
+        <el-button @click="dialogFormVisible = false">取消</el-button>
+      </span>
+    </template>
+  </el-dialog>
+  
 </template>
 
 <script lang="ts">
@@ -103,7 +141,18 @@ export default defineComponent({
       }
     })
     
-    return {...toRefs(data), onSubmit}
+    const changeUser = (row:ListInt)=>{
+      console.log(row)
+      data.active = {
+        id:row.id,
+        nickName:row.nickName,
+        userName:row.userName,
+        role:row.role.map((value)=>value.role)
+      }
+      data.isShow = true
+    }
+    
+    return {...toRefs(data), onSubmit, changeUser}
   }
 })
 </script>
