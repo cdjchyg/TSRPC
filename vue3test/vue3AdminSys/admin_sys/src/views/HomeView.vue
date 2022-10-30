@@ -5,7 +5,7 @@
         <el-row :gutter="20">
           <el-col :span="4"><img src="../assets/logo.png" class="logo"/></el-col>
           <el-col :span="16"><h2>后台管理系统</h2></el-col>
-          <el-col :span="4"><span class="quit-login">退出登录</span></el-col>
+          <el-col :span="4" class="close-btn"><el-button @click="delToken">退出登录</el-button></el-col>
         </el-row>
         
       </el-header>
@@ -47,7 +47,13 @@ export default defineComponent({
     console.log(router.getRoutes())
     const list = router.getRoutes().filter((v)=>v.meta.isShow)
     console.log(list)
-    return {list}
+    
+    const delToken = ()=>{
+      localStorage.removeItem("token")
+      router.push("/login")
+    }
+    
+    return {list, delToken}
   }
 });
 </script>
@@ -65,6 +71,10 @@ export default defineComponent({
     height: 80px;
     line-height: 80px;
     color:#fff
+  }
+  .close-btn{
+    height: 80px;
+    line-height: 80px;
   }
 }
 

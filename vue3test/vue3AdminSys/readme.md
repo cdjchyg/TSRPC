@@ -1,5 +1,5 @@
 ﻿
-视屏教程 练手项目
+视频教程 练手项目
 电商后台系统
 https://www.bilibili.com/video/BV1nr4y1G73d/?spm_id_from=333.337.search-card.all.click&vd_source=427767c4c8b4f789172c77badc06350c
 
@@ -30,5 +30,11 @@ vue create admin_sys // 创建工程
  
  http mock,需要挂vpn
  https://www.fastmock.site/#/
+ 
+ 21跳到26
+ 
+ 
+ 进一步学习
+ https://www.bilibili.com/video/BV1dS4y1y7vd?p=1&vd_source=427767c4c8b4f789172c77badc06350c
  
  
