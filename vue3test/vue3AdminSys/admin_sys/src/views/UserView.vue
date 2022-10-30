@@ -34,7 +34,7 @@
           <el-button
           v-for="item in scope.row.role"
           :key="item.role"
-          type="text"
+          link
           size="small"
           >
             {{item.roleName}}
@@ -47,10 +47,9 @@
 </template>
 
 <script lang="ts">
-import { onMounted, defineComponent, reactive, toRefs} from 'vue'
+import {onMounted, defineComponent, reactive, toRefs, watch} from 'vue'
 import {getUserList, getRoleList} from "../request/api"
-import {InitData} from "../type/user"
-
+import {InitData, ListInt } from "../type/user"
 export default defineComponent({
   setup(){
     const data=reactive(new InitData())
@@ -73,7 +72,38 @@ export default defineComponent({
         data.roleList = res.data
       })
     }
-    return {...toRefs(data)}
+    const onSubmit=()=>{
+      let arr:ListInt[] = []
+      if (data.selectData.nickName || data.selectData.role)
+      {
+        if(data.selectData.nickName)
+        {
+          arr = data.list.filter((value)=>{
+            return value.nickName.indexOf(data.selectData.nickName) >= 0
+          })
+        }
+        if(data.selectData.role)
+        {
+          arr = (data.selectData.nickName?arr:data.list).filter((value)=>{
+            return value.role.find((item)=>{
+              return item.role == data.selectData.role
+            })
+          })
+        }
+      }else {
+        arr = data.list
+      }
+      data.list = arr
+    }
+
+    watch([()=>data.selectData.nickName, ()=>data.selectData.role], ()=>{
+      if (data.selectData.nickName == "" || data.selectData.role == 0)
+      {
+        getUser()
+      }
+    })
+    
+    return {...toRefs(data), onSubmit}
   }
 })
 </script>
