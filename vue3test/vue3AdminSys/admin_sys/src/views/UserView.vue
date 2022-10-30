@@ -6,10 +6,28 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue'
+import { onMounted, defineComponent} from 'vue'
+import {getUserList, getRoleList} from "../request/api"
 
 export default defineComponent(({
   setup(){
+    onMounted(()=>{
+      getUser()
+      getRole()
+    })
+    
+    const getUser = ()=>{
+      getUserList().then((res)=>{
+        console.log(res)
+      })
+    }
+
+    const getRole = ()=>{
+      getRoleList().then((res)=>{
+        console.log(res)
+      })
+    }
+    
     return {}
   }
 }))

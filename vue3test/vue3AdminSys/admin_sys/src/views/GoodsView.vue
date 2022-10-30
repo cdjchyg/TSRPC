@@ -25,17 +25,23 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, reactive, toRefs, computed, watch} from 'vue'
+import {defineComponent, reactive, toRefs, computed, watch, onMounted} from 'vue'
 import {getGoodsList} from "../request/api"
 import {InitData, ListInt} from '../type/goods'
 export default defineComponent({
   setup(){
     const data = reactive(new InitData())
-    getGoodsList().then((res)=>{
-      console.log(res)
-      data.list = res.data
-      data.selectData.count = res.data.length
+    onMounted(()=>{
+      getGoods()
     })
+    const getGoods = ()=>
+    {
+      getGoodsList().then((res)=>{
+        // console.log(res)
+        data.list = res.data
+        data.selectData.count = res.data.length
+      })
+    }
     const dataList=reactive({
       //computed 当依赖的属性（page pagesize）发生变化时，会自动计算
       comList:computed(()=>{
@@ -77,12 +83,7 @@ export default defineComponent({
     watch([()=>data.selectData.title, ()=>data.selectData.introduce], ()=>{
       if (data.selectData.title == "" && data.selectData.introduce == "")
       {
-        // TODO提取公共方法
-        getGoodsList().then((res)=>{
-          // console.log(res)
-          data.list = res.data
-          data.selectData.count = res.data.length
-        })
+        getGoods()
       }
     })
     return {...toRefs(data), currentChange, sizeChange, dataList, onSubmit}

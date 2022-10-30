@@ -17,3 +17,17 @@ export function getGoodsList(){
         method:"get"
     })
 }
+
+export function getUserList(){
+    return service({
+        url:"/getUserList",
+        method:"get"
+    })
+}
+
+export function getRoleList(){
+    return service({
+        url:"/getRoleList",
+        method:"get"
+    })
+}
