@@ -36,5 +36,7 @@ vue create admin_sys // 创建工程
  
  进一步学习
  https://www.bilibili.com/video/BV1dS4y1y7vd?p=1&vd_source=427767c4c8b4f789172c77badc06350c
+
+ 完整源码在百度网盘：我的网盘/code/vue3+typescript
  
  
